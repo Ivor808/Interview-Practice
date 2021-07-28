@@ -1,10 +1,13 @@
 package BinarySearchTree;
 
+import BinarySearchTree.TreePrinter.PrintableNode;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 public class BST {
 
-  private class Node implements Comparable<Node>{
+  private class Node implements Comparable<Node>, PrintableNode {
     public Node left;
     public Node right;
     private Integer val;
@@ -25,6 +28,30 @@ public class BST {
       return "Node{" +
           "val=" + val +
           '}';
+    }
+
+    /**
+     * Get left child
+     */
+    @Override
+    public PrintableNode getLeft() {
+      return this.left;
+    }
+
+    /**
+     * Get right child
+     */
+    @Override
+    public PrintableNode getRight() {
+      return this.right;
+    }
+
+    /**
+     * Get text to be printed
+     */
+    @Override
+    public String getText() {
+      return this.val.toString();
     }
   }
 
@@ -112,12 +139,12 @@ public class BST {
     return isValidBST(root.left) && isValidBST(root.right);
   }
 
-  public Integer getMin() {
-    Node curr = this.root;
+  public Node getMin(Node root) {
+    Node curr = root;
     while (curr.left != null) {
       curr = curr.left;
     }
-    return curr.val;
+    return curr;
   }
 
   public Integer getMax() {
@@ -126,6 +153,40 @@ public class BST {
       curr = curr.right;
     }
     return curr.val;
+  }
+
+  public Node deleteMin(Node root) {
+    if (root.left == null) return root.right;
+    root.left = deleteMin(root.left);
+    return root;
+  }
+  // hibard deletion, 3 cases
+  public Node delete(Integer val, Node node) {
+
+    if (node == null) {
+      return null;
+    }
+
+    if (val.compareTo(node.val) < 0) {
+      node.left = delete(val, node.left);
+    }
+    else if (val.compareTo(node.val) >0) {
+      node.right = delete(val, node.right);
+    }
+    else {
+      if (node.right == null) return node.left;
+      if (node.left == null) return node.right;
+
+      Node curr = node.left;
+      node = getMin(node.right);
+      node.right = deleteMin(node);
+      node.left = curr;
+      return node;
+
+    }
+    count --;
+    return node;
+
   }
 
   private int numChildren(Node node) {
@@ -180,7 +241,7 @@ public class BST {
     bst.insert(bst.new Node(1));
     System.out.println("Is a valid BST " + bst.isValidBST());
 
-    System.out.println("min is "+bst.getMin());
+    System.out.println("min is "+bst.getMin(bst.root));
     System.out.println("max is "+bst.getMax());
 
     System.out.println("root num children is "+bst.numChildren(bst.root));
@@ -190,7 +251,20 @@ public class BST {
     System.out.println("Height doesnt change " + bst.findHeight());
     bst.insert(bst.new Node(0));
     System.out.println("Height changes " + bst.findHeight());
+    TreePrinter.print(bst.root);
+    System.out.println("Delete min 0 " + bst.deleteMin(bst.root));
+    TreePrinter.print(bst.root);
+    bst.insert(bst.new Node(9));
+    TreePrinter.print(bst.root);
+    bst.delete(8,bst.root);
+    TreePrinter.print(bst.root);
+    bst.insert(bst.new Node(10));
+    bst.insert(bst.new Node(11));
+    TreePrinter.print(bst.root);
+    bst.delete(9,bst.root);
+    TreePrinter.print(bst.root);
   }
-}
 
+
+}
 

@@ -1,3 +1,6 @@
+BinarySearchTree/TreePrinter.java
+ BinarySearchTree.TreePrinter
+ BinarySearchTree.TreePrinter$PrintableNode
 BinarySearchTree/BST.java
  BinarySearchTree.BST
  BinarySearchTree.BST$Node
