@@ -10,7 +10,7 @@ public class BST {
   private class Node implements Comparable<Node>, PrintableNode {
     public Node left;
     public Node right;
-    private Integer val;
+    private final Integer val;
 
     public Node(Integer val) {
       this.val = val;

@@ -104,7 +104,7 @@ public class TreePrinter {
           char c = ' ';
           if (j % 2 == 1) {
             if (line.get(j - 1) != null) {
-              c = (line.get(j) != null) ? '|' : '|';
+              c = '|';
             } else {
               if (j < line.size() && line.get(j) != null) {
                 c = '|';
@@ -123,7 +123,7 @@ public class TreePrinter {
             for (int k = 0; k < hpw; k++) {
               System.out.print(j % 2 == 0 ? " " : "─");
             }
-            System.out.print(j % 2 == 0 ? "|" : "|");
+            System.out.print("|");
             for (int k = 0; k < hpw; k++) {
               System.out.print(j % 2 == 0 ? "─" : " ");
             }
