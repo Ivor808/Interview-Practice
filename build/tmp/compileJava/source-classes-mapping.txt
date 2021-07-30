@@ -4,3 +4,5 @@ BinarySearchTree/TreePrinter.java
 BinarySearchTree/BST.java
  BinarySearchTree.BST
  BinarySearchTree.BST$Node
+heap/BinaryHeap.java
+ heap.BinaryHeap
