@@ -82,7 +82,8 @@ public class BinaryHeap<Key extends Comparable<Key>> {
     }
 
     public void delete(int k) {
-        pq[k] = pq[count--];
+        exch(k,count--);
+        pq[count+1] = null;
         Key child = pq[2*k];
         if (pq[k].compareTo(pq[k/2]) > 0) swim(k);
         else {
@@ -101,17 +102,10 @@ public class BinaryHeap<Key extends Comparable<Key>> {
     }
 
     public boolean validHeap() {
-        for (int i = 1; i <= count; i ++) {
-            if (i*2 > count) {
-                if (less(i/2,i)) {
-                    return false;
-                }
-                continue;
-            }
+        for (int i = 1; i <= count/2 -1; i ++) {
             if (pq[i].compareTo(pq[i*2]) < 0 || pq[i].compareTo(pq[i*2 + 1]) < 0) {
                 return false;
             }
-
         }
         return true;
     }
@@ -129,11 +123,16 @@ public class BinaryHeap<Key extends Comparable<Key>> {
         System.out.println(Arrays.toString(heap.pq));
         heap.delete(3);
         System.out.println(Arrays.toString(heap.pq));
-        heap.pq[6] = 800;
         System.out.println("set last element to be large manually so not valid heap " + heap.validHeap());
-
-
         System.out.println(Arrays.toString(heap.pq));
+        heap.delete(5);
+        System.out.println(heap.validHeap());
+        System.out.println(Arrays.toString(heap.pq));
+        heap.pq[6]= 50;
+        heap.count ++;
+        System.out.println(Arrays.toString(heap.pq));
+        System.out.println(heap.validHeap());
+
 
     }
 }
