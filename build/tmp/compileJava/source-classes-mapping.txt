@@ -1,13 +1,11 @@
 heap/BinaryHeap.java
  heap.BinaryHeap
-HT.java
- HT
- HT$Node
-BinarySearchTree/BST.java
- BinarySearchTree.BST
- BinarySearchTree.BST$Node
-HashTable.java
- HashTable
 BinarySearchTree/TreePrinter.java
  BinarySearchTree.TreePrinter
  BinarySearchTree.TreePrinter$PrintableNode
+BinarySearchTree/BST.java
+ BinarySearchTree.BST
+ BinarySearchTree.BST$Node
+HashTable/HT.java
+ HashTable.HT
+ HashTable.HT$Node
