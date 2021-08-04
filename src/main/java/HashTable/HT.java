@@ -51,11 +51,11 @@ public class HT<K, V> {
   }
 
   private Integer hash(Node o) {
-    return o.hashCode() % this.count;
+    return o.hashCode() % this.htTable.length;
   }
 
   public void add(K key, V value) {
-
+    if (count >= htTable.length/2) grow();
     Node<K, V> toAdd = new Node<K, V>(key, value);
     if (htTable.length == 0) {
       htTable = new Node[INITIALSIZE];
@@ -63,19 +63,14 @@ public class HT<K, V> {
     Integer hash = getPos(toAdd);
     if (htTable[hash] == null) {
       htTable[hash] = toAdd;
+      count++;
 
     } else if (htTable[hash].equals(toAdd)) {
       htTable[hash].value = value;
     } else {
-      int curr = hash + 1;
-      if (curr >= htTable.length) {
-        grow();
-      }
+      int curr = hash;
       while (htTable[curr] != null) {
         curr++;
-        if (curr >= htTable.length) {
-          grow();
-        }
       }
       htTable[curr] = toAdd;
       count++;
@@ -107,7 +102,7 @@ public class HT<K, V> {
     if (htTable.length <= 0) {
       return 0;
     }
-    return node.hashCode() % htTable.length;
+    return hash(node);
   }
 
   public boolean exists(K key) {
@@ -138,6 +133,7 @@ public class HT<K, V> {
     int pos = getPos(new Node(key, 5));
 
     if (htTable[pos] == null) {
+
       return false;
     }
     int curr = pos;
@@ -153,7 +149,7 @@ public class HT<K, V> {
           add(tmp.key, tmp.value);
           curr++;
         }
-        if (count < htTable.length / 2) {
+        if (count < htTable.length / 8) {
           shrink();
         }
         return true;
@@ -202,7 +198,7 @@ public class HT<K, V> {
    * Mistakes made
    * Not resizing correctly - must rehash every item
    * Do out of bounds checks FIRST
-   *
+   * You should have to resize only before adding or after deleting.
    * */
 
 
